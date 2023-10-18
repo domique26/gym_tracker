@@ -61,11 +61,19 @@ class _HomePageState extends State<HomePage> {
               setState(
                 () {
                   Workouts.workouts.add(
-                    [
+                    /*[
                       '${week[index]}   |   ${now.day}.${now.month}.${now.year}   |   ${formatTime(now)}',
                       trainigs[index],
                       60
-                    ],
+                    ],*/
+
+                    RepsSetsWeights(
+                        reps: 6,
+                        sets: 4,
+                        weight: 50,
+                        exercise: "Dips",
+                        date: "${now.day}.${now.month}.${now.year}",
+                        time: formatTime(now)),
                   );
                 },
               );

@@ -15,7 +15,10 @@ class TrainingDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(
-        title: Text("$weekday $date"),
+        title: const Text(
+          "Workout Details",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.grey[900],
       ),
       body: detailBody(context),
@@ -37,8 +40,18 @@ class TrainingDetail extends StatelessWidget {
                 topRight: Radius.circular(15),
               ),
             ),
-            child: Row(
-              children: [Text('$weekday')],
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    weekday,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -48,6 +61,24 @@ class TrainingDetail extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 1.15,
             decoration: BoxDecoration(
               color: Colors.grey[900],
+            ),
+            child: const Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.battery_4_bar,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  title: Text(
+                    "Back Day",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                )
+              ],
             ),
           ),
         ),
