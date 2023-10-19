@@ -12,7 +12,7 @@ class RepsSetsWeights {
       required this.date});
 }
 
-class Workouts {
+class Workout {
   /*static List workouts = [
     ["Mon.", "Chest", 60],
     ["Wed.", "Legs", 75],
@@ -23,9 +23,18 @@ class Workouts {
   // 19:45  18.10.2023  Chest
   final String time, date, type;
 
-  static final List<RepsSetsWeights> workouts = [];
+  static final List<RepsSetsWeights> workouts = [
+    RepsSetsWeights(
+      reps: 7,
+      sets: 3,
+      weight: 70,
+      exercise: "Legpress",
+      time: "19:21",
+      date: "19.10.2023",
+    )
+  ];
 
-  Workouts({
+  Workout({
     required this.time,
     required this.date,
     required this.type,

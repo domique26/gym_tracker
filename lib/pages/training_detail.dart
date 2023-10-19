@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/utils/workout.dart';
 
 class TrainingDetail extends StatelessWidget {
-  final String weekday;
-  final String date;
+  final RepsSetsWeights repsSetsWeights;
 
   const TrainingDetail({
     super.key,
-    required this.weekday,
-    required this.date,
+    required this.repsSetsWeights,
   });
 
   @override
@@ -47,7 +46,7 @@ class TrainingDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    weekday,
+                    repsSetsWeights.date,
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],

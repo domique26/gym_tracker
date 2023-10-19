@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/pages/training_detail.dart';
 import 'package:gym_tracker/utils/trainings_tile.dart';
-import 'package:gym_tracker/utils/workouts.dart';
+import 'package:gym_tracker/utils/workout.dart';
 
 // ignore: must_be_immutable
 class TrainingsPage extends StatefulWidget {
-  TrainingsPage({super.key});
+  const TrainingsPage({super.key});
 
   @override
   State<TrainingsPage> createState() => _TrainingsPageState();
 }
 
 class _TrainingsPageState extends State<TrainingsPage> {
-  List workouts = Workouts.workouts;
+  List workouts = Workout.workouts;
 
-  void viewDetail() {
-    /*Navigator.push(
+  void viewDetail(RepsSetsWeights repsSetsWeights) {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TrainingDetail(
-          weekday: weekday,
-          date: date,
+          repsSetsWeights: repsSetsWeights,
         ),
       ),
-    );*/
+    );
   }
 
   void deleteWorkout(int index) {
     setState(() {
-      Workouts.workouts.removeAt(index);
+      Workout.workouts.removeAt(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Workouts.workouts.isEmpty) {
+    if (Workout.workouts.isEmpty) {
       return const Center(
         child: Text(
           "EMPTY :c\n",
@@ -46,12 +45,12 @@ class _TrainingsPageState extends State<TrainingsPage> {
       itemCount: workouts.length,
       itemBuilder: (context, index) {
         return TrainingTile(
-          weekday: workouts[index][0],
-          date: workouts[index][1],
-          duration: workouts[index][2],
+          weekday: Workout.workouts[index].date,
+          date: Workout.workouts[index].exercise,
+          duration: Workout.workouts[index].reps,
           index: index,
           viewDetail: () {
-            viewDetail();
+            viewDetail(Workout.workouts[index]);
           },
           delete: () {
             deleteWorkout(index);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker/utils/workouts.dart';
+import 'package:gym_tracker/utils/workout.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               DateTime now = DateTime.now();
               setState(
                 () {
-                  Workouts.workouts.add(
+                  Workout.workouts.add(
                     /*[
                       '${week[index]}   |   ${now.day}.${now.month}.${now.year}   |   ${formatTime(now)}',
                       trainigs[index],
