@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-List pages = [const NewTrainingPage(), const HomePage(), TrainingsPage()];
+List pages = [const NewTrainingPage(), const HomePage(), const TrainingsPage()];
 
 class _MyAppState extends State<MyApp> {
   //New

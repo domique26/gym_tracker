@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gym_tracker/utils/workout.dart';
 
 class TrainingDetail extends StatelessWidget {
-  final RepsSetsWeights repsSetsWeights;
+  final Workout workout;
 
   const TrainingDetail({
     super.key,
-    required this.repsSetsWeights,
+    required this.workout,
   });
 
   @override
@@ -24,77 +24,41 @@ class TrainingDetail extends StatelessWidget {
     );
   }
 
-  Column detailBody(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
-          child: Container(
-            height: MediaQuery.of(context).size.width * 0.3,
-            decoration: BoxDecoration(
-              color: Colors.grey[900],
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    repsSetsWeights.date,
-                    style: const TextStyle(color: Colors.white),
+  Widget detailBody(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: workout.repsSetsWeights.length,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    tileColor: Colors.grey[900],
+                    textColor: Colors.white,
+                    iconColor: Colors.white,
+                    leading: const Icon(Icons.home, size: 40),
+                    title: Text(
+                      workout.repsSetsWeights[index].exercise,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    subtitle: Text(
+                        "${workout.repsSetsWeights[index].reps} Reps    |   ${workout.repsSetsWeights[index].sets} Sets    |   ${workout.repsSetsWeights[index].weight} KG"),
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
-          child: Container(
-            height: MediaQuery.of(context).size.width * 1.15,
-            decoration: BoxDecoration(
-              color: Colors.grey[900],
-            ),
-            child: const Column(
-              children: [
-                ListTile(
-                  leading: Icon(
-                    Icons.battery_4_bar,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                  title: Text(
-                    "Back Day",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
-          child: Container(
-            height: MediaQuery.of(context).size.width * 0.25,
-            decoration: BoxDecoration(
-              color: Colors.grey[900],
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:gym_tracker/utils/workout.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(
             height: 10,
@@ -66,27 +68,40 @@ class _HomePageState extends State<HomePage> {
                       trainigs[index],
                       60
                     ],*/
-
-                    RepsSetsWeights(
-                        reps: 6,
-                        sets: 4,
-                        weight: 50,
-                        exercise: "Dips",
-                        date: "${now.day}.${now.month}.${now.year}",
-                        time: formatTime(now)),
+                    Workout(
+                      time: formatTime(now),
+                      date: "${now.day}.${now.month}.${now.year}",
+                      repsSetsWeights: [
+                        RepsSetsWeights(
+                          reps: 6,
+                          sets: 4,
+                          weight: 50,
+                          exercise: trainigs[index],
+                        ),
+                      ],
+                    ),
                   );
                 },
               );
             },
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                decoration: BoxDecoration(
                   color: Colors.grey[900],
-                  borderRadius: BorderRadius.circular(25)),
-              width: MediaQuery.of(context).size.width,
-              height: 469.4,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "data",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
             ),
           )
         ],
@@ -149,7 +164,7 @@ class WeekdaysTile extends StatelessWidget {
                   ),
                   subtitle: Padding(
                     padding: const EdgeInsets.only(top: 23.0),
-                    child: AddButton(trainigs, index),
+                    child: addButton(trainigs, index),
                   ),
                 ),
               ),
@@ -160,7 +175,7 @@ class WeekdaysTile extends StatelessWidget {
     );
   }
 
-  Widget AddButton(List<String> trainings, int index) {
+  Widget addButton(List<String> trainings, int index) {
     if (trainigs[index] == "Restday") {
       return FilledButton(
         onPressed: null,

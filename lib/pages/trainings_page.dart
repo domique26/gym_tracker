@@ -14,12 +14,12 @@ class TrainingsPage extends StatefulWidget {
 class _TrainingsPageState extends State<TrainingsPage> {
   List workouts = Workout.workouts;
 
-  void viewDetail(RepsSetsWeights repsSetsWeights) {
+  void viewDetail(Workout workout) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TrainingDetail(
-          repsSetsWeights: repsSetsWeights,
+          workout: workout,
         ),
       ),
     );
@@ -45,12 +45,11 @@ class _TrainingsPageState extends State<TrainingsPage> {
       itemCount: workouts.length,
       itemBuilder: (context, index) {
         return TrainingTile(
-          weekday: Workout.workouts[index].date,
-          date: Workout.workouts[index].exercise,
-          duration: Workout.workouts[index].reps,
-          index: index,
+          workout: Workout.workouts[index],
           viewDetail: () {
-            viewDetail(Workout.workouts[index]);
+            viewDetail(
+              Workout.workouts[index],
+            );
           },
           delete: () {
             deleteWorkout(index);
