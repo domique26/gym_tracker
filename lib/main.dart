@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/pages/home_page.dart';
+import 'package:gym_tracker/pages/settings_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
 
 void main() {
@@ -8,7 +9,7 @@ void main() {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  static int _selectedIndex = 1;
+  static int _selectedIndex = 0;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  List pages = [const HomePage(), const TrainingsPage()];
+  List pages = [const HomePage(), const TrainingsPage(), const SettingsPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,10 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               label: "Trainings",
               icon: Icon(Icons.calendar_month),
+            ),
+            BottomNavigationBarItem(
+              label: "Settings",
+              icon: Icon(Icons.settings),
             ),
           ],
         ),

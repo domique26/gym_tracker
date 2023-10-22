@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/main.dart';
 import 'package:gym_tracker/pages/new_training_page.dart';
+import 'package:gym_tracker/pages/settings_page.dart';
 
 import 'package:gym_tracker/utils/workout.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String formatTime(DateTime now) {
+  static String formatTime(DateTime now) {
     String formated = '';
     if (now.hour <= 9) {
       formated += '0${now.hour}';
@@ -30,6 +26,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
     var week = [
       "Monday",
@@ -40,15 +41,7 @@ class _HomePageState extends State<HomePage> {
       "Saturday",
       "Sunday"
     ];
-    var trainigs = [
-      "Restday",
-      "Chest",
-      "Legs",
-      "Restday",
-      "Arms",
-      "Restday",
-      "Back"
-    ];
+
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Column(
@@ -59,26 +52,32 @@ class _HomePageState extends State<HomePage> {
           ),
           WeekdaysTile(
             week: week,
-            trainigs: trainigs,
+            trainigs: SettingsPage.trainigs,
             add: (index) {
               DateTime now = DateTime.now();
               setState(
                 () {
                   Workout.workouts.add(
                     Workout(
-                      time: formatTime(now),
+                      time: HomePage.formatTime(now),
                       date: "${now.day}.${now.month}.${now.year}",
-                      repsSetsWeights: [
-                        RepsSetsWeights(
-                          reps: 6,
-                          sets: 4,
-                          weight: 50,
-                          exercise: trainigs[index],
-                        ),
-                      ],
+                      repsSetsWeights: [],
                     ),
                   );
                 },
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Scaffold(
+                      appBar: customAppBar(),
+                      body: NewTrainingPage(
+                        workout: Workout.workouts.last,
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -187,17 +186,6 @@ class WeekdaysTile extends StatelessWidget {
       return FilledButton(
         onPressed: () {
           add(index);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return Scaffold(
-                  appBar: customAppBar(),
-                  body: const NewTrainingsPageWidget(),
-                );
-              },
-            ),
-          );
         },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(

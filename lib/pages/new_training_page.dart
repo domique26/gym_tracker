@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/utils/workout.dart';
 
 class NewTrainingPage extends StatefulWidget {
-  const NewTrainingPage({super.key});
+  final Workout workout;
+  const NewTrainingPage({super.key, required this.workout});
 
   @override
   State<NewTrainingPage> createState() => _NewTrainingPageState();
@@ -10,20 +12,30 @@ class NewTrainingPage extends StatefulWidget {
 class _NewTrainingPageState extends State<NewTrainingPage> {
   @override
   Widget build(BuildContext context) {
-    return const NewTrainingsPageWidget();
-  }
-}
+    TextEditingController cnt4 = TextEditingController();
+    TextEditingController cnt1 = TextEditingController();
+    TextEditingController cnt2 = TextEditingController();
+    TextEditingController cnt3 = TextEditingController();
 
-class NewTrainingsPageWidget extends StatelessWidget {
-  const NewTrainingsPageWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          if (cnt1.text.isEmpty || cnt2.text.isEmpty || cnt3.text.isEmpty) {
+            return;
+          }
+
+          setState(
+            () {
+              widget.workout.repsSetsWeights.add(
+                RepsSetsWeights(
+                    reps: cnt1.text,
+                    sets: cnt2.text,
+                    weight: cnt3.text,
+                    exercise: cnt4.text),
+              );
+            },
+          );
+        },
         label: const Row(
           children: [Text("Add "), Icon(Icons.add)],
         ),
@@ -38,30 +50,58 @@ class NewTrainingsPageWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 12, right: 12),
-              child: TextField(
-                cursorColor: Colors.white,
-                decoration: InputDecoration(
-                  hintText: "Twoja Stara",
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                    borderSide: BorderSide(
-                        color: Colors.deepPurple.shade800, width: 2.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Exercise",
+                    style: TextStyle(color: Colors.white),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                    borderSide: BorderSide(
-                        color: Colors.deepPurple.shade800, width: 2.0),
+                  customTextField(cnt4),
+                  const Text(
+                    "Reps",
+                    style: TextStyle(color: Colors.white),
                   ),
-                ),
+                  customTextField(cnt1),
+                  const Text(
+                    "Sets",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  customTextField(cnt2),
+                  const Text(
+                    "Weight",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  customTextField(cnt3),
+                ],
               ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  TextField customTextField(TextEditingController controller) {
+    return TextField(
+      cursorColor: Colors.white,
+      controller: controller,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        hintText: "",
+        border: inputBorder(),
+        enabledBorder: inputBorder(),
+      ),
+    );
+  }
+
+  OutlineInputBorder inputBorder() {
+    return OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(12),
+      ),
+      borderSide: BorderSide(color: Colors.deepPurple.shade800, width: 2.0),
     );
   }
 }
