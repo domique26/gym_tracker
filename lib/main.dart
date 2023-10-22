@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/pages/home_page.dart';
-import 'package:gym_tracker/pages/new_training_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
 
 void main() {
@@ -15,8 +14,6 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-List pages = [const NewTrainingPage(), const HomePage(), const TrainingsPage()];
-
 class _MyAppState extends State<MyApp> {
   //New
   void _onItemTapped(int index) {
@@ -26,6 +23,8 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+
+  List pages = [const HomePage(), const TrainingsPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +36,7 @@ class _MyAppState extends State<MyApp> {
       ),*/
       home: Scaffold(
         backgroundColor: Colors.grey[800],
-        appBar: AppBar(
-          backgroundColor: Colors.grey[900],
-          centerTitle: true,
-          title: const Text("GYM TRACKER"),
-        ),
+        appBar: customAppBar(),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.grey[900],
           unselectedItemColor: Colors.grey[200],
@@ -49,10 +44,6 @@ class _MyAppState extends State<MyApp> {
           currentIndex: MyApp._selectedIndex, //New
           onTap: _onItemTapped,
           items: const [
-            BottomNavigationBarItem(
-              label: "Add Training",
-              icon: Icon(Icons.add),
-            ),
             BottomNavigationBarItem(
               label: "Home",
               icon: Icon(Icons.home),
@@ -67,4 +58,12 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+AppBar customAppBar() {
+  return AppBar(
+    backgroundColor: Colors.grey[900],
+    centerTitle: true,
+    title: const Text("GYM TRACKER"),
+  );
 }

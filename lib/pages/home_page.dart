@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/main.dart';
+import 'package:gym_tracker/pages/new_training_page.dart';
 
 import 'package:gym_tracker/utils/workout.dart';
 
@@ -63,11 +65,6 @@ class _HomePageState extends State<HomePage> {
               setState(
                 () {
                   Workout.workouts.add(
-                    /*[
-                      '${week[index]}   |   ${now.day}.${now.month}.${now.year}   |   ${formatTime(now)}',
-                      trainigs[index],
-                      60
-                    ],*/
                     Workout(
                       time: formatTime(now),
                       date: "${now.day}.${now.month}.${now.year}",
@@ -164,7 +161,7 @@ class WeekdaysTile extends StatelessWidget {
                   ),
                   subtitle: Padding(
                     padding: const EdgeInsets.only(top: 23.0),
-                    child: addButton(trainigs, index),
+                    child: addButton(trainigs, index, context),
                   ),
                 ),
               ),
@@ -175,7 +172,7 @@ class WeekdaysTile extends StatelessWidget {
     );
   }
 
-  Widget addButton(List<String> trainings, int index) {
+  Widget addButton(List<String> trainings, int index, BuildContext context) {
     if (trainigs[index] == "Restday") {
       return FilledButton(
         onPressed: null,
@@ -190,6 +187,17 @@ class WeekdaysTile extends StatelessWidget {
       return FilledButton(
         onPressed: () {
           add(index);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return Scaffold(
+                  appBar: customAppBar(),
+                  body: const NewTrainingsPageWidget(),
+                );
+              },
+            ),
+          );
         },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(

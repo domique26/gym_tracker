@@ -10,6 +10,17 @@ class NewTrainingPage extends StatefulWidget {
 class _NewTrainingPageState extends State<NewTrainingPage> {
   @override
   Widget build(BuildContext context) {
+    return const NewTrainingsPageWidget();
+  }
+}
+
+class NewTrainingsPageWidget extends StatelessWidget {
+  const NewTrainingsPageWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
