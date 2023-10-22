@@ -41,6 +41,30 @@ class _HomePageState extends State<HomePage> {
       "Saturday",
       "Sunday"
     ];
+    String formatWeekday(DateTime dt) {
+      String wd = "";
+      switch (dt.weekday) {
+        case 1:
+          wd = "Monday";
+        case 2:
+          wd = "Tuesday";
+        case 3:
+          wd = "Wednesday";
+        case 4:
+          wd = "Thursday";
+        case 5:
+          wd = "Friday";
+        case 6:
+          wd = "Saturday";
+        case 7:
+          wd = "Sunday";
+        default:
+          wd = "Erroro loool";
+      }
+      return wd;
+    }
+
+    String weekdayToday = formatWeekday(DateTime.now());
 
     return Scaffold(
       backgroundColor: Colors.grey[800],
@@ -90,11 +114,13 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(25),
                 ),
                 width: MediaQuery.of(context).size.width,
-                child: const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    "data",
-                    style: TextStyle(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Center(
+                    child: Text(
+                      "Today is $weekdayToday!",
+                      style: const TextStyle(color: Colors.white, fontSize: 35),
+                    ),
                   ),
                 ),
               ),

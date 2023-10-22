@@ -50,18 +50,47 @@ class _SettingsPageState extends State<SettingsPage> {
   DropdownButton<String> customDropDown(int index) {
     return DropdownButton(
       value: SettingsPage.trainigs[index],
+      dropdownColor: Colors.grey[900],
       items: const [
-        DropdownMenuItem(value: "Arms", child: Text("Arms")),
-        DropdownMenuItem(value: "Back", child: Text("Back")),
-        DropdownMenuItem(value: "Legs", child: Text("Legs")),
-        DropdownMenuItem(value: "Chest", child: Text("Chest")),
-        DropdownMenuItem(value: "Restday", child: Text("Restday")),
+        DropdownMenuItem(
+            value: "Arms", child: CustomTextWithStyle(value: "Arms")),
+        DropdownMenuItem(
+            value: "Back", child: CustomTextWithStyle(value: "Back")),
+        DropdownMenuItem(
+            value: "Legs", child: CustomTextWithStyle(value: "Legs")),
+        DropdownMenuItem(
+            value: "Chest", child: CustomTextWithStyle(value: "Chest")),
+        DropdownMenuItem(
+            value: "Restday", child: CustomTextWithStyle(value: "Restday")),
+        DropdownMenuItem(
+            value: "Upper Body",
+            child: CustomTextWithStyle(value: "Upper Body")),
+        DropdownMenuItem(
+            value: "Pull", child: CustomTextWithStyle(value: "Pull")),
+        DropdownMenuItem(
+            value: "Push", child: CustomTextWithStyle(value: "Push")),
       ],
       onChanged: (value) => {
         setState(() {
           SettingsPage.trainigs[index] = value.toString();
         })
       },
+    );
+  }
+}
+
+class CustomTextWithStyle extends StatelessWidget {
+  final String value;
+  const CustomTextWithStyle({
+    required this.value,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      value,
+      style: const TextStyle(color: Colors.white),
     );
   }
 }
