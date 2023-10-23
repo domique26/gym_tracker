@@ -36,8 +36,8 @@ class _TrainingsPageState extends State<TrainingsPage> {
     if (Workout.workouts.isEmpty) {
       return const Center(
         child: Text(
-          "EMPTY :c\n",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          "EMPTY :c",
+          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       );
     }

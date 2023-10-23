@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/main.dart';
+import 'package:gym_tracker/pages/new_training_page.dart';
 import 'package:gym_tracker/utils/workout.dart';
 
-class TrainingDetail extends StatelessWidget {
+class TrainingDetail extends StatefulWidget {
   final Workout workout;
 
   const TrainingDetail({
     super.key,
     required this.workout,
   });
+
+  @override
+  State<TrainingDetail> createState() => _TrainingDetailState();
+}
+
+class _TrainingDetailState extends State<TrainingDetail> {
+  Widget customBody(BuildContext context) {
+    if (widget.workout.repsSetsWeights.isEmpty) {
+      return Center(child: CustomAddButton(widget: widget));
+    }
+    return detailBody(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +34,7 @@ class TrainingDetail extends StatelessWidget {
         ),
         backgroundColor: Colors.grey[900],
       ),
-      body: detailBody(context),
+      body: customBody(context),
     );
   }
 
@@ -29,35 +43,91 @@ class TrainingDetail extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: workout.repsSetsWeights.length,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    tileColor: Colors.grey[900],
-                    textColor: Colors.white,
-                    iconColor: Colors.white,
-                    leading: const Icon(Icons.home, size: 40),
-                    title: Text(
-                      workout.repsSetsWeights[index].exercise,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    subtitle: Text(
-                        "${workout.repsSetsWeights[index].reps} Reps    |   ${workout.repsSetsWeights[index].sets} Sets    |   ${workout.repsSetsWeights[index].weight} KG"),
+          ListView.builder(
+            itemCount: widget.workout.repsSetsWeights.length,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                );
-              },
-            ),
+                  tileColor: Colors.grey[900],
+                  textColor: Colors.white,
+                  iconColor: Colors.white,
+                  leading: const Icon(Icons.home, size: 40),
+                  title: Text(
+                    widget.workout.repsSetsWeights[index].exercise,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  subtitle: Text(
+                    "${widget.workout.repsSetsWeights[index].reps} Reps    |   ${widget.workout.repsSetsWeights[index].sets} Sets    |   ${widget.workout.repsSetsWeights[index].weight} KG",
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.workout.repsSetsWeights.removeAt(index);
+                      });
+                    },
+                  ),
+                ),
+              );
+            },
           ),
+          CustomAddButton(widget: widget),
         ],
+      ),
+    );
+  }
+}
+
+class CustomAddButton extends StatelessWidget {
+  const CustomAddButton({
+    super.key,
+    required this.widget,
+  });
+
+  final TrainingDetail widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.deepPurple[800],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 6, right: 6),
+        child: TextButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Scaffold(
+                  appBar: customAppBar(),
+                  body: NewTrainingPage(
+                    workout: widget.workout,
+                  ),
+                ),
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          label: const Text(
+            "Add",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
     );
   }
