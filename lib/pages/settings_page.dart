@@ -20,23 +20,37 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        customText("Monday"),
-        customDropDown(0),
-        customText("Tuesday"),
-        customDropDown(1),
-        customText("Wednesday"),
-        customDropDown(2),
-        customText("Thursday"),
-        customDropDown(3),
-        customText("Friday"),
-        customDropDown(4),
-        customText("Saturday"),
-        customDropDown(5),
-        customText("Sunday"),
-        customDropDown(6),
-      ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 80.0, bottom: 67),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.grey[900],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(35.0),
+            child: Column(
+              children: [
+                customText("Monday"),
+                customDropDown(0),
+                customText("Tuesday"),
+                customDropDown(1),
+                customText("Wednesday"),
+                customDropDown(2),
+                customText("Thursday"),
+                customDropDown(3),
+                customText("Friday"),
+                customDropDown(4),
+                customText("Saturday"),
+                customDropDown(5),
+                customText("Sunday"),
+                customDropDown(6),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
