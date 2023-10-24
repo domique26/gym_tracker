@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gym_tracker/pages/home_page.dart';
 import 'package:gym_tracker/pages/settings_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  var dbWorkouts = await Hive.openBox('db_workouts');
+
   runApp(const MyApp());
 }
 
