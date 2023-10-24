@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker/utils/workout.dart';
+import 'package:gym_tracker/models/workout_model.dart';
 
 class TrainingTile extends StatefulWidget {
   final VoidCallback viewDetail;

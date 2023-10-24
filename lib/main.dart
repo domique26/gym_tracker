@@ -6,7 +6,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await Hive.initFlutter();
-  var dbWorkouts = await Hive.openBox('db_workouts');
+
+  //Hive.registerAdapter(WorkoutAdapter());
+  //Hive.registerAdapter(RepsSetsWeightsAdapter());
+
+  await Hive.openBox('workouts_db');
+  await Hive.openBox('settings_db');
 
   runApp(const MyApp());
 }
@@ -42,31 +47,35 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.grey[800],
         appBar: customAppBar(),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.grey[900],
-          unselectedItemColor: Colors.grey[200],
-          selectedItemColor: Colors.deepPurple[800],
-          currentIndex: MyApp._selectedIndex, //New
-          onTap: _onItemTapped,
-          items: const [
-            BottomNavigationBarItem(
-              label: "Home",
-              icon: Icon(Icons.home),
-            ),
-            BottomNavigationBarItem(
-              label: "Trainings",
-              icon: Icon(Icons.calendar_month),
-            ),
-            BottomNavigationBarItem(
-              label: "Settings",
-              icon: Icon(Icons.settings),
-            ),
-          ],
-        ),
+        bottomNavigationBar: customBottomNavBar(_onItemTapped),
         body: pages[MyApp._selectedIndex],
       ),
     );
   }
+}
+
+BottomNavigationBar customBottomNavBar(onItemTapped) {
+  return BottomNavigationBar(
+    backgroundColor: Colors.grey[900],
+    unselectedItemColor: Colors.grey[200],
+    selectedItemColor: Colors.deepPurple[800],
+    currentIndex: MyApp._selectedIndex, //New
+    onTap: onItemTapped,
+    items: const [
+      BottomNavigationBarItem(
+        label: "Home",
+        icon: Icon(Icons.home),
+      ),
+      BottomNavigationBarItem(
+        label: "Trainings",
+        icon: Icon(Icons.calendar_month),
+      ),
+      BottomNavigationBarItem(
+        label: "Settings",
+        icon: Icon(Icons.settings),
+      ),
+    ],
+  );
 }
 
 AppBar customAppBar() {

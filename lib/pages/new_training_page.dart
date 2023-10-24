@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker/utils/workout.dart';
+import 'package:gym_tracker/data/database.dart';
+import 'package:gym_tracker/models/reps_sets_weights_model.dart';
+import 'package:gym_tracker/models/workout_model.dart';
 
 class NewTrainingPage extends StatefulWidget {
   final Workout workout;
@@ -12,15 +14,18 @@ class NewTrainingPage extends StatefulWidget {
 class _NewTrainingPageState extends State<NewTrainingPage> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController cnt4 = TextEditingController();
     TextEditingController cnt1 = TextEditingController();
     TextEditingController cnt2 = TextEditingController();
     TextEditingController cnt3 = TextEditingController();
+    TextEditingController cnt4 = TextEditingController();
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (cnt1.text.isEmpty || cnt2.text.isEmpty || cnt3.text.isEmpty) {
+          if (cnt1.text.isEmpty ||
+              cnt2.text.isEmpty ||
+              cnt3.text.isEmpty ||
+              cnt4.text.isEmpty) {
             return;
           }
 
@@ -28,11 +33,13 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
             () {
               widget.workout.repsSetsWeights.add(
                 RepsSetsWeights(
-                    reps: cnt1.text,
-                    sets: cnt2.text,
-                    weight: cnt3.text,
-                    exercise: cnt4.text),
+                  exercise: cnt1.text,
+                  reps: cnt2.text,
+                  sets: cnt3.text,
+                  weight: cnt4.text,
+                ),
               );
+              db.updateDatabase();
             },
           );
         },

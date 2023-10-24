@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker/main.dart';
-import 'package:gym_tracker/pages/new_training_page.dart';
-import 'package:gym_tracker/utils/workout.dart';
+import 'package:gym_tracker/data/database.dart';
+import 'package:gym_tracker/utils/add_button.dart';
+import 'package:gym_tracker/models/workout_model.dart';
 
 class TrainingDetail extends StatefulWidget {
   final Workout workout;
@@ -75,6 +75,7 @@ class _TrainingDetailState extends State<TrainingDetail> {
                       setState(() {
                         widget.workout.repsSetsWeights.removeAt(index);
                       });
+                      db.updateDatabase();
                     },
                   ),
                 ),
@@ -83,51 +84,6 @@ class _TrainingDetailState extends State<TrainingDetail> {
           ),
           CustomAddButton(widget: widget),
         ],
-      ),
-    );
-  }
-}
-
-class CustomAddButton extends StatelessWidget {
-  const CustomAddButton({
-    super.key,
-    required this.widget,
-  });
-
-  final TrainingDetail widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.deepPurple[800],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 6, right: 6),
-        child: TextButton.icon(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Scaffold(
-                  appBar: customAppBar(),
-                  body: NewTrainingPage(
-                    workout: widget.workout,
-                  ),
-                ),
-              ),
-            );
-          },
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          label: const Text(
-            "Add",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
       ),
     );
   }

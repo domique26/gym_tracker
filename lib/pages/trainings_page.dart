@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/data/database.dart';
 import 'package:gym_tracker/pages/training_detail.dart';
-import 'package:gym_tracker/utils/trainings_tile.dart';
-import 'package:gym_tracker/utils/workout.dart';
+import 'package:gym_tracker/models/trainings_tile_model.dart';
+import 'package:gym_tracker/models/workout_model.dart';
 
 // ignore: must_be_immutable
 class TrainingsPage extends StatefulWidget {
@@ -12,8 +13,6 @@ class TrainingsPage extends StatefulWidget {
 }
 
 class _TrainingsPageState extends State<TrainingsPage> {
-  List workouts = Workout.workouts;
-
   void viewDetail(Workout workout) {
     Navigator.push(
       context,
@@ -27,13 +26,14 @@ class _TrainingsPageState extends State<TrainingsPage> {
 
   void deleteWorkout(int index) {
     setState(() {
-      Workout.workouts.removeAt(index);
+      db.workouts.removeAt(index);
     });
+    db.updateDatabase();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Workout.workouts.isEmpty) {
+    if (db.workouts.isEmpty) {
       return const Center(
         child: Text(
           "EMPTY :c",
@@ -42,13 +42,13 @@ class _TrainingsPageState extends State<TrainingsPage> {
       );
     }
     return ListView.builder(
-      itemCount: workouts.length,
+      itemCount: db.workouts.length,
       itemBuilder: (context, index) {
         return TrainingTile(
-          workout: Workout.workouts[index],
+          workout: db.workouts[index],
           viewDetail: () {
             viewDetail(
-              Workout.workouts[index],
+              db.workouts[index],
             );
           },
           delete: () {
