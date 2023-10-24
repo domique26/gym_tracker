@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/models/reps_sets_weights_model.dart';
+import 'package:gym_tracker/models/workout_model.dart';
 import 'package:gym_tracker/pages/home_page.dart';
 import 'package:gym_tracker/pages/settings_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
@@ -7,8 +9,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter();
 
-  //Hive.registerAdapter(WorkoutAdapter());
-  //Hive.registerAdapter(RepsSetsWeightsAdapter());
+  Hive.registerAdapter(WorkoutAdapter());
+  Hive.registerAdapter(RepsSetsWeightsAdapter());
 
   await Hive.openBox('workouts_db');
   await Hive.openBox('settings_db');

@@ -9,13 +9,13 @@ class SettingsDatabase {
 
   void initData() {
     trainigs = [
+      "Upper Body",
       "Restday",
-      "Chest",
-      "Legs",
+      "Legday",
       "Restday",
-      "Arms",
+      "Upper Body",
       "Restday",
-      "Back"
+      "Restday"
     ];
   }
 

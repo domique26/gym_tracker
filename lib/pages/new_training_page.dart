@@ -14,18 +14,18 @@ class NewTrainingPage extends StatefulWidget {
 class _NewTrainingPageState extends State<NewTrainingPage> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController cnt1 = TextEditingController();
-    TextEditingController cnt2 = TextEditingController();
-    TextEditingController cnt3 = TextEditingController();
-    TextEditingController cnt4 = TextEditingController();
+    TextEditingController exerciseCnt = TextEditingController();
+    TextEditingController repsCnt = TextEditingController();
+    TextEditingController setsCnt = TextEditingController();
+    TextEditingController weightCnt = TextEditingController();
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (cnt1.text.isEmpty ||
-              cnt2.text.isEmpty ||
-              cnt3.text.isEmpty ||
-              cnt4.text.isEmpty) {
+          if (exerciseCnt.text.isEmpty ||
+              repsCnt.text.isEmpty ||
+              setsCnt.text.isEmpty ||
+              weightCnt.text.isEmpty) {
             return;
           }
 
@@ -33,10 +33,10 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
             () {
               widget.workout.repsSetsWeights.add(
                 RepsSetsWeights(
-                  exercise: cnt1.text,
-                  reps: cnt2.text,
-                  sets: cnt3.text,
-                  weight: cnt4.text,
+                  exercise: exerciseCnt.text,
+                  reps: repsCnt.text,
+                  sets: setsCnt.text,
+                  weight: weightCnt.text,
                 ),
               );
               db.updateDatabase();
@@ -65,22 +65,22 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
                     "Exercise",
                     style: TextStyle(color: Colors.white),
                   ),
-                  customTextField(cnt4),
+                  customTextField(exerciseCnt),
                   const Text(
                     "Reps",
                     style: TextStyle(color: Colors.white),
                   ),
-                  customTextField(cnt1),
+                  customTextField(repsCnt),
                   const Text(
                     "Sets",
                     style: TextStyle(color: Colors.white),
                   ),
-                  customTextField(cnt2),
+                  customTextField(setsCnt),
                   const Text(
                     "Weight",
                     style: TextStyle(color: Colors.white),
                   ),
-                  customTextField(cnt3),
+                  customTextField(weightCnt),
                 ],
               ),
             )
