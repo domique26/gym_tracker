@@ -27,13 +27,13 @@ class _TrainingTileState extends State<TrainingTile> {
           borderRadius: BorderRadius.circular(12),
         ),
         tileColor: Colors.grey[900],
-        title: Text(
-          widget.workout.date,
-          style: const TextStyle(color: Colors.white),
+        title: const Text(
+          '',
+          style: TextStyle(color: Colors.white),
         ),
         subtitle: Text(
-          widget.workout.time,
-          style: const TextStyle(color: Colors.white),
+          '${widget.workout.date}       |        ${widget.workout.time}',
+          style: const TextStyle(color: Colors.grey),
         ),
         trailing: IconButton(
           icon: const Icon(
