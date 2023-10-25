@@ -4,6 +4,7 @@ import 'package:gym_tracker/models/workout_model.dart';
 import 'package:gym_tracker/pages/home_page.dart';
 import 'package:gym_tracker/pages/settings_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
+import 'package:gym_tracker/theme/custom_theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -15,7 +16,11 @@ void main() async {
   await Hive.openBox('workouts_db');
   await Hive.openBox('settings_db');
 
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -27,6 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  _MyAppState();
   //New
   void _onItemTapped(int index) {
     setState(
@@ -58,9 +64,10 @@ class _MyAppState extends State<MyApp> {
 
 BottomNavigationBar customBottomNavBar(onItemTapped) {
   return BottomNavigationBar(
-    backgroundColor: Colors.grey[900],
-    unselectedItemColor: Colors.grey[200],
-    selectedItemColor: Colors.deepPurple[800],
+    backgroundColor: themeData().bottomNavigationBarTheme.backgroundColor,
+    unselectedItemColor:
+        themeData().bottomNavigationBarTheme.unselectedItemColor,
+    selectedItemColor: themeData().bottomNavigationBarTheme.selectedItemColor,
     currentIndex: MyApp._selectedIndex, //New
     onTap: onItemTapped,
     items: const [
@@ -82,7 +89,7 @@ BottomNavigationBar customBottomNavBar(onItemTapped) {
 
 AppBar customAppBar() {
   return AppBar(
-    backgroundColor: Colors.grey[900],
+    backgroundColor: themeData().appBarTheme.backgroundColor,
     centerTitle: true,
     title: const Text("GYM TRACKER"),
   );

@@ -11,7 +11,7 @@ class SettingsDatabase {
     trainigs = [
       "Upper Body",
       "Restday",
-      "Legday",
+      "Legs",
       "Restday",
       "Upper Body",
       "Restday",

@@ -51,17 +51,19 @@ class _TrainingDetailState extends State<TrainingDetail> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
+                  leading: const Icon(Icons.home, size: 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                   tileColor: Colors.grey[900],
                   textColor: Colors.white,
                   iconColor: Colors.white,
-                  leading: const Icon(Icons.home, size: 40),
                   title: Text(
                     widget.workout.repsSetsWeights[index].exercise,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   subtitle: Text(
                     "${widget.workout.repsSetsWeights[index].reps} Reps    |   ${widget.workout.repsSetsWeights[index].sets} Sets    |   ${widget.workout.repsSetsWeights[index].weight} KG",
