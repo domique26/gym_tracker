@@ -105,81 +105,102 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Center(
-                    child: TableCalendar(
-                      headerStyle: const HeaderStyle(
-                        titleTextStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: _focusedDay,
-                      selectedDayPredicate: (day) {
-                        return isSameDay(_selectedDay, day);
-                      },
-                      onPageChanged: (focusedDay) {
-                        _focusedDay = focusedDay;
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        Workout? w;
-                        for (Workout e in db.workouts) {
-                          if (e.date ==
-                              '${selectedDay.day}.${selectedDay.month}.${selectedDay.year}') {
-                            w = e;
-                          } else {
-                            w = null;
-                          }
-                        }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              if (w == null) {
-                                return Scaffold(
-                                    appBar: customAppBar(),
-                                    body: Container(
-                                      color: Colors.grey[800],
-                                      child: const Center(
-                                        child: Text(
-                                          "Empty :c",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24,
-                                          ),
-                                        ),
-                                      ),
-                                    ));
-                              } else {
-                                return Scaffold(
-                                  body: TrainingDetail(
-                                    workout: w,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        );
-                      },
-                      eventLoader: (day) {
-                        return _getEventsForDay(day);
-                      },
-                      calendarBuilders: CalendarBuilders(
-                        dowBuilder: (context, day) {
-                          return const Center(
-                            child: Text(
-                              "",
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    child: customTableCalendar(context),
                   ),
                 ),
               ),
             ),
           )
         ],
+      ),
+    );
+  }
+
+  TextStyle ts = const TextStyle(color: Colors.white);
+  TableCalendar<dynamic> customTableCalendar(BuildContext context) {
+    return TableCalendar(
+      calendarStyle: CalendarStyle(
+        markerMargin: const EdgeInsets.only(left: 1),
+        markerDecoration: const BoxDecoration(
+          color: Colors.deepPurple,
+        ),
+        weekNumberTextStyle: ts,
+        todayTextStyle: ts,
+        defaultTextStyle: ts,
+        selectedTextStyle: ts,
+        todayDecoration: BoxDecoration(
+          color: Colors.deepPurple[800],
+          borderRadius: BorderRadius.circular(100),
+        ),
+      ),
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      headerStyle: const HeaderStyle(
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      firstDay: DateTime.utc(2010, 10, 16),
+      lastDay: DateTime.utc(2030, 3, 14),
+      focusedDay: _focusedDay,
+      selectedDayPredicate: (day) {
+        return isSameDay(_selectedDay, day);
+      },
+      onPageChanged: (focusedDay) {
+        _focusedDay = focusedDay;
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        Workout? w;
+
+        for (Workout e in db.workouts) {
+          if (e.date ==
+              '${selectedDay.day}.${selectedDay.month}.${selectedDay.year}') {
+            w = e;
+          } else {
+            w = null;
+          }
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              if (w == null) {
+                return Scaffold(
+                    appBar: customAppBar(),
+                    body: Container(
+                      color: Colors.grey[800],
+                      child: const Center(
+                        child: Text(
+                          "Empty :c",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                    ));
+              } else {
+                return Scaffold(
+                  body: TrainingDetail(
+                    workout: w,
+                  ),
+                );
+              }
+            },
+          ),
+        );
+      },
+      eventLoader: (day) {
+        return _getEventsForDay(day);
+      },
+      calendarBuilders: CalendarBuilders(
+        dowBuilder: (context, day) {
+          return const Center(
+            child: Text(
+              "",
+              style: TextStyle(color: Colors.red),
+            ),
+          );
+        },
       ),
     );
   }
