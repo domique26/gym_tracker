@@ -3,6 +3,7 @@ import 'package:gym_tracker/data/database.dart';
 import 'package:gym_tracker/main.dart';
 import 'package:gym_tracker/models/workout_model.dart';
 import 'package:gym_tracker/pages/training_detail.dart';
+import 'package:gym_tracker/utils/format.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 TextStyle ts = const TextStyle(color: Colors.white);
@@ -22,61 +23,79 @@ TableCalendar<dynamic> customTableCalendar(BuildContext context) {
     onPageChanged: (focusedDay) {
       _focusedDay = focusedDay;
     },
-    onDaySelected: (selectedDay, focusedDay) {
-      Workout? w;
-
-      for (Workout e in db.workouts) {
-        if (e.date ==
-            '${selectedDay.day}.${selectedDay.month}.${selectedDay.year}') {
-          w = e;
-        } else {
-          w = null;
-        }
-      }
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            if (w == null) {
-              return Scaffold(
-                  appBar: customAppBar(),
-                  body: Container(
-                    color: Colors.grey[800],
-                    child: const Center(
-                      child: Text(
-                        "Empty :c",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                  ));
-            } else {
-              return Scaffold(
-                body: TrainingDetail(
-                  workout: w,
-                ),
-              );
-            }
-          },
-        ),
-      );
-    },
+    onDaySelected: (selectedDay, focusedDay) => onDaySelected(
+      selectedDay,
+      focusedDay,
+      context,
+    ),
     eventLoader: (day) {
       return _getEventsForDay(day);
     },
-    calendarBuilders: CalendarBuilders(
-      dowBuilder: (context, day) {
-        return const Center(
-          child: Text(
-            "",
-            style: TextStyle(color: Colors.red),
-          ),
-        );
+    calendarBuilders: calendarBuilder(),
+  );
+}
+
+onDaySelected(DateTime selectedDay, DateTime focusedDay, BuildContext context) {
+  Workout? w;
+
+  for (Workout e in db.workouts) {
+    if (e.date ==
+        DateTime(selectedDay.day, selectedDay.month, selectedDay.year)) {
+      w = e;
+    } else {
+      w = null;
+    }
+  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        return builderCustomPage(w);
       },
     ),
   );
+}
+
+CalendarBuilders<dynamic> calendarBuilder() {
+  return CalendarBuilders(
+    dowBuilder: (context, day) {
+      return Center(
+        child: Text(
+          formatWeekdayShort(day),
+          style: TextStyle(
+            color: Colors.deepPurple[500],
+            fontSize: 15,
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Scaffold builderCustomPage(Workout? w) {
+  if (w == null) {
+    return Scaffold(
+      appBar: customAppBar(),
+      body: Container(
+        color: Colors.grey[800],
+        child: const Center(
+          child: Text(
+            "Empty :c",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+      ),
+    );
+  } else {
+    return Scaffold(
+      body: TrainingDetail(
+        workout: w,
+      ),
+    );
+  }
 }
 
 CalendarStyle customCalendarStyle() {
@@ -119,7 +138,12 @@ HeaderStyle customHeaderStyle() {
 List _getEventsForDay(DateTime day) {
   List b = [];
   for (Workout e in db.workouts) {
-    if (e.date == '${day.day}.${day.month}.${day.year}') {
+    if (e.date ==
+        DateTime(
+          day.year,
+          day.month,
+          day.day,
+        )) {
       b.add(e);
     }
   }

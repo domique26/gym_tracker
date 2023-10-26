@@ -4,7 +4,6 @@ import 'package:gym_tracker/data/settings_db.dart';
 import 'package:gym_tracker/main.dart';
 import 'package:gym_tracker/pages/new_training_page.dart';
 import 'package:gym_tracker/utils/custom_table_calendar.dart';
-import 'package:gym_tracker/utils/format.dart';
 import 'package:gym_tracker/models/weekdays_tile_model.dart';
 
 import 'package:gym_tracker/models/workout_model.dart';
@@ -60,13 +59,14 @@ class _HomePageState extends State<HomePage> {
             week: week,
             trainigs: settings_db.trainigs,
             add: (index) {
-              DateTime now = DateTime.now();
+              DateTime nowDate = DateTime.now();
+              TimeOfDay timeOfDay = TimeOfDay.now();
               setState(
                 () {
                   db.workouts.add(
                     Workout(
-                      time: formatTime(now),
-                      date: "${now.day}.${now.month}.${now.year}",
+                      time: timeOfDay,
+                      date: DateTime(nowDate.year, nowDate.month, nowDate.day),
                       repsSetsWeights: [],
                     ),
                   );

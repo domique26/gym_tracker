@@ -22,45 +22,49 @@ class WeekdaysTile extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(left: 12.0),
-            child: Container(
-              width: 170,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: Colors.grey[900],
-              ),
-              child: ListTile(
-                title: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    week[index],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-                subtitle: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.only(top: 14.0),
-                    child: Text(
-                      trainigs[index],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 23.0),
-                    child: addButton(trainigs, index, context),
-                  ),
-                ),
-              ),
-            ),
+            child: weekdaysTile(index, context),
           );
         },
+      ),
+    );
+  }
+
+  Container weekdaysTile(int index, BuildContext context) {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Colors.grey[900],
+      ),
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            week[index],
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.underline),
+          ),
+        ),
+        subtitle: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 14.0),
+            child: Text(
+              trainigs[index],
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey[500],
+              ),
+            ),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 23.0),
+            child: addButton(trainigs, index, context),
+          ),
+        ),
       ),
     );
   }

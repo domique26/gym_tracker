@@ -31,6 +31,21 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+const List<BottomNavigationBarItem> items = [
+  BottomNavigationBarItem(
+    label: "Home",
+    icon: Icon(Icons.home),
+  ),
+  BottomNavigationBarItem(
+    label: "Trainings",
+    icon: Icon(Icons.calendar_month),
+  ),
+  BottomNavigationBarItem(
+    label: "Settings",
+    icon: Icon(Icons.settings),
+  ),
+];
+
 class _MyAppState extends State<MyApp> {
   _MyAppState();
   //New
@@ -70,20 +85,7 @@ BottomNavigationBar customBottomNavBar(onItemTapped) {
     selectedItemColor: themeData().bottomNavigationBarTheme.selectedItemColor,
     currentIndex: MyApp._selectedIndex, //New
     onTap: onItemTapped,
-    items: const [
-      BottomNavigationBarItem(
-        label: "Home",
-        icon: Icon(Icons.home),
-      ),
-      BottomNavigationBarItem(
-        label: "Trainings",
-        icon: Icon(Icons.calendar_month),
-      ),
-      BottomNavigationBarItem(
-        label: "Settings",
-        icon: Icon(Icons.settings),
-      ),
-    ],
+    items: items,
   );
 }
 

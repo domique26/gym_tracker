@@ -37,3 +37,26 @@ String formatWeekday(DateTime dt) {
   }
   return wd;
 }
+
+String formatWeekdayShort(DateTime dt) {
+  String wd = "";
+  switch (dt.weekday) {
+    case 1:
+      wd = "Mon";
+    case 2:
+      wd = "Tues";
+    case 3:
+      wd = "Wed";
+    case 4:
+      wd = "Thu";
+    case 5:
+      wd = "Fri";
+    case 6:
+      wd = "Sat";
+    case 7:
+      wd = "Sun";
+    default:
+      wd = "Erroro loool";
+  }
+  return wd;
+}
