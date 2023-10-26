@@ -135,6 +135,18 @@ class _HomePageState extends State<HomePage> {
       ),
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: const HeaderStyle(
+        rightChevronIcon: Icon(
+          Icons.chevron_right,
+          color: Colors.white,
+        ),
+        leftChevronIcon: Icon(
+          Icons.chevron_left,
+          color: Colors.white,
+        ),
+        formatButtonDecoration: BoxDecoration(),
+        formatButtonTextStyle: TextStyle(
+          color: Colors.white,
+        ),
         titleTextStyle: TextStyle(
           color: Colors.white,
         ),
