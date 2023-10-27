@@ -17,7 +17,7 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Workout(
-      time: fields[0] as TimeOfDay,
+      time: fields[0] as String,
       date: fields[1] as DateTime,
       repsSetsWeights: (fields[2] as List).cast<RepsSetsWeights>(),
     );

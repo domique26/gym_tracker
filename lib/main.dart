@@ -25,7 +25,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  static int _selectedIndex = 0;
+  static int _selectedIndex = 1;
 
   @override
   State<MyApp> createState() => _MyAppState();

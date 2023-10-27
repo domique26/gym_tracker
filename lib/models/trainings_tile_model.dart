@@ -32,7 +32,7 @@ class _TrainingTileState extends State<TrainingTile> {
           style: const TextStyle(color: Colors.white),
         ),
         subtitle: Text(
-          '${widget.workout.time.hour}:${widget.workout.time.minute}',
+          '${widget.workout.time}',
           style: const TextStyle(color: Colors.grey),
         ),
         trailing: IconButton(

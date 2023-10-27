@@ -59,14 +59,17 @@ class _HomePageState extends State<HomePage> {
             week: week,
             trainigs: settings_db.trainigs,
             add: (index) {
-              DateTime nowDate = DateTime.now();
-              TimeOfDay timeOfDay = TimeOfDay.now();
+              DateTime now = DateTime.now();
               setState(
                 () {
                   db.workouts.add(
                     Workout(
-                      time: timeOfDay,
-                      date: DateTime(nowDate.year, nowDate.month, nowDate.day),
+                      time: '${now.hour}, ${now.minute}',
+                      date: DateTime(
+                        now.year,
+                        now.month,
+                        now.day,
+                      ),
                       repsSetsWeights: [],
                     ),
                   );
