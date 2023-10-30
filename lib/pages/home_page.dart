@@ -7,7 +7,6 @@ import 'package:gym_tracker/utils/custom_table_calendar.dart';
 import 'package:gym_tracker/models/weekdays_tile_model.dart';
 
 import 'package:gym_tracker/models/workout_model.dart';
-import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,24 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var myBox = Hive.box('workouts_db');
-  var mySettings = Hive.box('settings_db');
-
-  @override
-  void initState() {
-    if (myBox.get("workouts") == null) {
-      db.initData();
-    } else {
-      db.loadData();
-    }
-    if (mySettings.get("settings") == null) {
-      settings_db.initData();
-    } else {
-      settings_db.loadData();
-    }
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var week = [

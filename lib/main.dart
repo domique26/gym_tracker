@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/data/database.dart';
+import 'package:gym_tracker/data/settings_db.dart';
 import 'package:gym_tracker/models/reps_sets_weights_model.dart';
 import 'package:gym_tracker/models/workout_model.dart';
 import 'package:gym_tracker/pages/home_page.dart';
@@ -17,6 +19,20 @@ void main() async {
   await Hive.openBox('settings_db');
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  var myBox = Hive.box('workouts_db');
+  var mySettings = Hive.box('settings_db');
+
+  if (myBox.get("workouts") == null) {
+    db.initData();
+  } else {
+    db.loadData();
+  }
+  if (mySettings.get("settings") == null) {
+    settings_db.initData();
+  } else {
+    settings_db.loadData();
+  }
 
   runApp(
     const MyApp(),
@@ -46,6 +62,8 @@ const List<BottomNavigationBarItem> items = [
   ),
 ];
 
+List pages = [const HomePage(), const TrainingsPage(), const SettingsPage()];
+
 class _MyAppState extends State<MyApp> {
   _MyAppState();
   //New
@@ -56,8 +74,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-
-  List pages = [const HomePage(), const TrainingsPage(), const SettingsPage()];
 
   @override
   Widget build(BuildContext context) {
