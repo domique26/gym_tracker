@@ -4,6 +4,7 @@ import 'package:gym_tracker/data/settings_db.dart';
 import 'package:gym_tracker/models/reps_sets_weights_model.dart';
 import 'package:gym_tracker/models/training_day_model.dart';
 import 'package:gym_tracker/models/workout_model.dart';
+import 'package:gym_tracker/pages/compare_trainings.dart';
 import 'package:gym_tracker/pages/home_page.dart';
 import 'package:gym_tracker/pages/settings_page.dart';
 import 'package:gym_tracker/pages/trainings_page.dart';
@@ -49,22 +50,35 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-const List<BottomNavigationBarItem> items = [
+List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
     label: "Home",
-    icon: Icon(Icons.home),
+    icon: const Icon(Icons.home),
+    backgroundColor: Colors.grey[900],
   ),
   BottomNavigationBarItem(
     label: "Trainings",
-    icon: Icon(Icons.calendar_month),
+    icon: const Icon(Icons.calendar_month),
+    backgroundColor: Colors.grey[900],
+  ),
+  BottomNavigationBarItem(
+    label: "Compare",
+    icon: const Icon(Icons.compare_arrows),
+    backgroundColor: Colors.grey[900],
   ),
   BottomNavigationBarItem(
     label: "Settings",
-    icon: Icon(Icons.settings),
+    icon: const Icon(Icons.settings),
+    backgroundColor: Colors.grey[900],
   ),
 ];
 
-List pages = [const HomePage(), const TrainingsPage(), const SettingsPage()];
+List pages = [
+  const HomePage(),
+  const TrainingsPage(),
+  const CompareTrainigsPage(),
+  const SettingsPage()
+];
 
 class _MyAppState extends State<MyApp> {
   _MyAppState();
@@ -97,7 +111,7 @@ class _MyAppState extends State<MyApp> {
 
 BottomNavigationBar customBottomNavBar(onItemTapped) {
   return BottomNavigationBar(
-    backgroundColor: themeData().bottomNavigationBarTheme.backgroundColor,
+    backgroundColor: Colors.grey[900],
     unselectedItemColor:
         themeData().bottomNavigationBarTheme.unselectedItemColor,
     selectedItemColor: themeData().bottomNavigationBarTheme.selectedItemColor,
