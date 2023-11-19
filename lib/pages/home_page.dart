@@ -18,16 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var week = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ];
-
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Column(
@@ -37,7 +27,6 @@ class _HomePageState extends State<HomePage> {
             height: 10,
           ),
           WeekdaysTile(
-            week: week,
             trainigs: settings_db.trainigs,
             add: (index) {
               DateTime now = DateTime.now();

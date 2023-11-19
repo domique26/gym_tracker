@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class WeekdaysTile extends StatelessWidget {
   const WeekdaysTile({
     super.key,
-    required this.week,
     required this.trainigs,
     required this.add,
   });
 
-  final List<String> week;
-  final List<String> trainigs;
+  final List<dynamic> trainigs;
   final void Function(int) add;
 
   @override
@@ -40,7 +38,7 @@ class WeekdaysTile extends StatelessWidget {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            week[index],
+            trainigs[index].day,
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 20,
@@ -52,7 +50,7 @@ class WeekdaysTile extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.only(top: 14.0),
             child: Text(
-              trainigs[index],
+              trainigs[index].trainigsType,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -69,7 +67,7 @@ class WeekdaysTile extends StatelessWidget {
     );
   }
 
-  Widget addButton(List<String> trainings, int index, BuildContext context) {
+  Widget addButton(List<dynamic> trainings, int index, BuildContext context) {
     if (trainigs[index] == "Restday") {
       return FilledButton(
         onPressed: null,

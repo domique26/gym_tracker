@@ -40,7 +40,7 @@ onDaySelected(DateTime selectedDay, DateTime focusedDay, BuildContext context) {
 
   for (Workout e in db.workouts) {
     if (e.date ==
-        DateTime(selectedDay.day, selectedDay.month, selectedDay.year)) {
+        DateTime(selectedDay.year, selectedDay.month, selectedDay.day)) {
       w = e;
     } else {
       w = null;
@@ -138,12 +138,7 @@ HeaderStyle customHeaderStyle() {
 List _getEventsForDay(DateTime day) {
   List b = [];
   for (Workout e in db.workouts) {
-    if (e.date ==
-        DateTime(
-          day.year,
-          day.month,
-          day.day,
-        )) {
+    if (e.date == DateTime(day.year, day.month, day.day)) {
       b.add(e);
     }
   }

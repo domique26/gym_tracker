@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   DropdownButton<String> customDropDown(int index) {
     return DropdownButton(
-      value: settings_db.trainigs[index],
+      value: settings_db.trainigs[index].trainigsType,
       dropdownColor: Colors.grey[900],
       items: const [
         DropdownMenuItem(
@@ -78,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
       onChanged: (value) => {
         setState(() {
-          settings_db.trainigs[index] = value.toString();
+          settings_db.trainigs[index].trainigsType = value.toString();
         }),
         settings_db.updateDatabase(),
       },

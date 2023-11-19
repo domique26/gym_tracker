@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_tracker/data/database.dart';
 import 'package:gym_tracker/data/settings_db.dart';
 import 'package:gym_tracker/models/reps_sets_weights_model.dart';
+import 'package:gym_tracker/models/training_day_model.dart';
 import 'package:gym_tracker/models/workout_model.dart';
 import 'package:gym_tracker/pages/home_page.dart';
 import 'package:gym_tracker/pages/settings_page.dart';
@@ -14,6 +15,7 @@ void main() async {
 
   Hive.registerAdapter(WorkoutAdapter());
   Hive.registerAdapter(RepsSetsWeightsAdapter());
+  Hive.registerAdapter(TrainingDayAdapter());
 
   await Hive.openBox('workouts_db');
   await Hive.openBox('settings_db');
@@ -41,7 +43,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  static int _selectedIndex = 1;
+  static int _selectedIndex = 0;
 
   @override
   State<MyApp> createState() => _MyAppState();
