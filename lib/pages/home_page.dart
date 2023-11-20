@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/data/database.dart';
-import 'package:gym_tracker/data/settings_db.dart';
+import 'package:gym_tracker/data/trainings_db.dart';
 import 'package:gym_tracker/main.dart';
 import 'package:gym_tracker/pages/new_training_page.dart';
 import 'package:gym_tracker/utils/custom_table_calendar.dart';
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             height: 10,
           ),
           WeekdaysTile(
-            trainigs: settings_db.trainigs,
+            trainigs: trainigs_db.trainigs,
             add: (index) {
               DateTime now = DateTime.now();
               setState(

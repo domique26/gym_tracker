@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/data/database.dart';
-import 'package:gym_tracker/data/settings_db.dart';
+import 'package:gym_tracker/data/machines_db.dart';
+import 'package:gym_tracker/data/trainings_db.dart';
 import 'package:gym_tracker/models/reps_sets_weights_model.dart';
 import 'package:gym_tracker/models/training_day_model.dart';
 import 'package:gym_tracker/models/workout_model.dart';
@@ -19,22 +20,29 @@ void main() async {
   Hive.registerAdapter(TrainingDayAdapter());
 
   await Hive.openBox('workouts_db');
-  await Hive.openBox('settings_db');
+  await Hive.openBox('trainigs_db');
+  await Hive.openBox('machines_db');
 
   WidgetsFlutterBinding.ensureInitialized();
 
   var myBox = Hive.box('workouts_db');
-  var mySettings = Hive.box('settings_db');
+  var myTrainigs = Hive.box('trainigs_db');
+  var myMaschines = Hive.box('machines_db');
 
   if (myBox.get("workouts") == null) {
     db.initData();
   } else {
     db.loadData();
   }
-  if (mySettings.get("settings") == null) {
-    settings_db.initData();
+  if (myTrainigs.get("trainigs") == null) {
+    trainigs_db.initData();
   } else {
-    settings_db.loadData();
+    trainigs_db.loadData();
+  }
+  if (myMaschines.get("machines") == null) {
+    machines.initData();
+  } else {
+    machines.loadData();
   }
 
   runApp(

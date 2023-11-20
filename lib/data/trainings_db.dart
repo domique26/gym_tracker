@@ -1,12 +1,11 @@
 import 'package:gym_tracker/models/training_day_model.dart';
 import 'package:hive/hive.dart';
 
-SettingsDatabase settings_db = SettingsDatabase();
+TrainingsDatabase trainigs_db = TrainingsDatabase();
 
-class SettingsDatabase {
+class TrainingsDatabase {
   List<dynamic> trainigs = [];
-
-  var db = Hive.box("settings_db");
+  var db = Hive.box("trainigs_db");
 
   void initData() {
     trainigs = [
@@ -21,10 +20,10 @@ class SettingsDatabase {
   }
 
   void loadData() {
-    trainigs = db.get("settings");
+    trainigs = db.get("trainigs");
   }
 
   void updateDatabase() {
-    db.put("settings", trainigs);
+    db.put("trainigs", trainigs);
   }
 }

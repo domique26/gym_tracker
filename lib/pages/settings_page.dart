@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_tracker/data/settings_db.dart';
+import 'package:gym_tracker/data/machines_db.dart';
+import 'package:gym_tracker/data/trainings_db.dart';
 import 'package:gym_tracker/utils/custom_text.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -12,34 +13,56 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 80.0, bottom: 67),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.grey[900],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(35.0),
-            child: Column(
-              children: [
-                customText("Monday"),
-                customDropDown(0),
-                customText("Tuesday"),
-                customDropDown(1),
-                customText("Wednesday"),
-                customDropDown(2),
-                customText("Thursday"),
-                customDropDown(3),
-                customText("Friday"),
-                customDropDown(4),
-                customText("Saturday"),
-                customDropDown(5),
-                customText("Sunday"),
-                customDropDown(6),
-              ],
+    debugPrint(machines.maschines.length.toString());
+    return Row(
+      children: [
+        const SizedBox(width: 10),
+        weekdaySettings(),
+        const SizedBox(width: 15),
+        Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: machines.maschines.length,
+              itemBuilder: (index, context) {
+                return Text(
+                  index.toString(),
+                );
+              },
             ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Padding weekdaySettings() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25.0, bottom: 147),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.grey[900],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(35.0),
+          child: Column(
+            children: [
+              customText("Monday"),
+              customDropDown(0),
+              customText("Tuesday"),
+              customDropDown(1),
+              customText("Wednesday"),
+              customDropDown(2),
+              customText("Thursday"),
+              customDropDown(3),
+              customText("Friday"),
+              customDropDown(4),
+              customText("Saturday"),
+              customDropDown(5),
+              customText("Sunday"),
+              customDropDown(6),
+            ],
           ),
         ),
       ),
@@ -55,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   DropdownButton<String> customDropDown(int index) {
     return DropdownButton(
-      value: settings_db.trainigs[index].trainigsType,
+      value: trainigs_db.trainigs[index].trainigsType,
       dropdownColor: Colors.grey[900],
       items: const [
         DropdownMenuItem(
@@ -78,9 +101,9 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
       onChanged: (value) => {
         setState(() {
-          settings_db.trainigs[index].trainigsType = value.toString();
+          trainigs_db.trainigs[index].trainigsType = value.toString();
         }),
-        settings_db.updateDatabase(),
+        trainigs_db.updateDatabase(),
       },
     );
   }
