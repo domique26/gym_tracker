@@ -19,19 +19,22 @@ class _SettingsPageState extends State<SettingsPage> {
         const SizedBox(width: 10),
         weekdaySettings(),
         const SizedBox(width: 15),
-        Column(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: machines.maschines.length,
-              itemBuilder: (index, context) {
-                return Text(
-                  index.toString(),
-                );
-              },
-            ),
-          ],
-        )
+        Expanded(
+          child: ListView.builder(
+            itemCount: machines.maschines.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
+                child: ListTile(
+                  textColor: Colors.white,
+                  iconColor: Colors.white,
+                  tileColor: Colors.grey[900],
+                  title: Text(machines.maschines[index].name),
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

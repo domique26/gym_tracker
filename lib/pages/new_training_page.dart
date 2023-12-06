@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/data/database.dart';
+import 'package:gym_tracker/data/machines_db.dart';
 import 'package:gym_tracker/models/reps_sets_weights_model.dart';
 import 'package:gym_tracker/models/workout_model.dart';
 
@@ -12,9 +13,13 @@ class NewTrainingPage extends StatefulWidget {
 }
 
 class _NewTrainingPageState extends State<NewTrainingPage> {
+  String selected = "A1";
   @override
   Widget build(BuildContext context) {
-    TextEditingController exerciseCnt = TextEditingController();
+    List<DropdownMenuItem> menuItemList = machines.maschines
+        .map((val) => DropdownMenuItem(value: val.name, child: Text(val.name)))
+        .toList();
+
     TextEditingController repsCnt = TextEditingController();
     TextEditingController setsCnt = TextEditingController();
     TextEditingController weightCnt = TextEditingController();
@@ -22,8 +27,7 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (exerciseCnt.text.isEmpty ||
-              repsCnt.text.isEmpty ||
+          if (repsCnt.text.isEmpty ||
               setsCnt.text.isEmpty ||
               weightCnt.text.isEmpty) {
             return;
@@ -33,7 +37,7 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
             () {
               widget.workout.repsSetsWeights.add(
                 RepsSetsWeights(
-                  exercise: exerciseCnt.text,
+                  exercise: selected,
                   reps: repsCnt.text,
                   sets: setsCnt.text,
                   weight: weightCnt.text,
@@ -62,10 +66,15 @@ class _NewTrainingPageState extends State<NewTrainingPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Exercise",
+                    "Machine",
                     style: TextStyle(color: Colors.white),
                   ),
-                  customTextField(exerciseCnt),
+                  DropdownButton(
+                    dropdownColor: Colors.grey[600],
+                    value: selected,
+                    items: menuItemList,
+                    onChanged: (val) => setState(() => selected = val),
+                  ),
                   const Text(
                     "Reps",
                     style: TextStyle(color: Colors.white),
